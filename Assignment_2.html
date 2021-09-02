@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    
+    <title>Student Enrollment Form</title>
+
+    <script>
+      function submitForm(e) {
+        e.preventDefault();
+
+        //get form data
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const website = document.getElementById("homepage").value;
+
+        const img = document.getElementById("img").files[0];
+        const img_url = URL.createObjectURL(img);
+
+        if (document.getElementById("GenderMale").checked) {
+          gender = "Male";
+        } else {
+          gender = "Female";
+        }
+
+        var selectedSkills = [];
+        var skills = document.getElementsByName("skills");
+
+        for (var i = 0; i < skills.length; i++) {
+          if (skills[i].checked) {
+            selectedSkills.push(skills[i].value);
+          }
+        }
+
+        if (selectedSkills.length < 1) {
+          selectedSkills = "No skills selected.";
+        }
+
+        // create table
+        var table = document.getElementById("mytable");
+        var row = table.insertRow(table.length);
+        cell1 = row.insertCell(0);
+        cell2 = row.insertCell(1);
+
+        const cell1_data =
+          name +
+          "<br/>" +
+          gender +
+          "<br/>" +
+          email +
+          "<br/>" +
+          website +
+          "<br/>" +
+          selectedSkills;
+
+        const cell2_data =
+          "<img src='" + img_url + "' class='img-fluid img-thumbnail' />";
+
+        cell1.innerHTML = cell1_data;
+        cell2.innerHTML = cell2_data;
+
+        document.getElementById("enrollmentForm").reset();
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .container h5 {
+        /* background-color: rgb(125, 204, 180); */
+        border: 1px solid rgb(91, 158, 138);
+        text-align: center;
+        height: 55px;
+        padding-top: 12px;
+        background-color: rgb(82, 218, 188);
+      }
+
+      .row {
+        border: left;
+        border: black;
+      }
+
+      #h6heading {
+        text-align: center;
+      }
+
+      .header {
+        color: green;
+        background-color: rgb(174, 216, 125);
+      }
+      #col2 {
+        border-right: 1px solid black;
+        margin-right: 16px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border-left: 1px solid rgb(108, 214, 209);
+      }
+      #col1 {
+        border-left: 1px solid black;
+        margin-left: 16px;
+        padding-left: 30px;
+        padding-right: 30px;
+        border-right: 1px solid rgb(108, 214, 209);
+      }
+      label {
+        display: inline;
+      }
+    </style>
+  </head>
+
+  <body class="bg-light">
+    <h1>Assignment</h1>
+    <div class="container">
+      <h6>Create a student enrollment form</h6>
+      <h5 class="text-light">Student Enrollment Form</h5>
+    </div>
+    <div class="container">
+      <div class="row text-dark">
+        <div class="col" id="col1">
+          <form
+            name="myForm"
+            id="enrollmentForm"
+            action="#"
+            method="post"
+            autocomplete="off"
+            onsubmit="submitForm(event)"
+            required
+          >
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                id="name"
+                aria-describedby="nameHelp"
+                placeholder="Enter name"
+                required
+                aria-required="true"
+              />
+              <span></span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address:</label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                id="email"
+                aria-describedby="emailHelp"
+                placeholder="Enter email"
+                required
+                aria-required="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="homepage">Website:</label>
+              <input
+                type="url"
+                class="form-control"
+                id="homepage"
+                name="homepage"
+                aria-describedby="urlHelp"
+                placeholder="Enter Website "
+                required
+                aria-required="true"
+              />
+            </div>
+            <div class="form-group">
+              <label for="img">Image Link:</label>
+              <input
+                type="file"
+                class="form-control"
+                id="img"
+                name="img"
+                aria-describedby="imageHelp"
+                accept="image/*"
+                placeholder="Enter Image Link "
+                required
+                aria-required="true"
+              />
+            </div>
+            <div class="form-check form-check-inline">
+              <label for="Gender">Gender:</label><br />
+              <input
+                class="form-check-input ml-md-3"
+                type="radio"
+                name="genderRadio"
+                id="GenderMale"
+                value="Male"
+                required
+                aria-required="true"
+              />
+              <label class="form-check-label" for="Gender">Male</label>
+
+              <input
+                class="form-check-input ml-md-3"
+                type="radio"
+                name="genderRadio"
+                id="inlineRadio2"
+                value="GenderFemale"
+                required
+                aria-required="true"
+              />
+              <label class="form-check-label" for="inlineRadio2">Female</label>
+            </div>
+            <br /><br />
+            <div class="form-check form-check-inline">
+              <label for="skill">Skills:</label>
+              <input
+                class="form-check-input ml-md-3"
+                type="checkbox"
+                id="skill"
+                name="skills"
+                value="Java"
+              />
+              <label class="form-check-label" for="skill">JAVA</label>
+              <input
+                class="form-check-input ml-md-3"
+                type="checkbox"
+                name="skills"
+                id="inlineCheckbox2"
+                value="HTML"
+              />
+              <label class="form-check-label" for="inlineCheckbox2">HTML</label>
+              <input
+                class="form-check-input ml-md-3"
+                type="checkbox"
+                name="skills"
+                id="inlineCheckbox3"
+                value="CSS"
+              />
+              <label class="form-check-label" for="inlineCheckbox3">CSS </label>
+            </div>
+            <br /><br />
+
+            <button type="submit" class="btn btn-primary">
+              Enroll Student
+            </button>
+            <button type="reset" class="btn btn-danger">Clear</button>
+          </form>
+        </div>
+
+        <!-- Display Side -->
+        <div class="col" id="col2">
+          <h6 id="h6heading">Enrolled Student</h6>
+          <table class="table table-bordered" id="mytable">
+            <thead>
+              <tr>
+                <th scope="col" class="header">Description</th>
+                <th scope="col" class="header">Image</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
